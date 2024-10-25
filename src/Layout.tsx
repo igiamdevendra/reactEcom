@@ -17,7 +17,6 @@ const Layout : React.FC = ()=> {
   console.log(productData)
   return (
     <>
-
         <main className='min-h-[calc(100vh-56px)]'>
         <Navbar />
         <Outlet/>

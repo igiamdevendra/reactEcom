@@ -3,12 +3,11 @@ import Layout from "../Layout";
 import Home from "../pages/Home";
 import Product from "../pages/Product";
 import CartItems from "../pages/CartItems";
-// import Mens from "../pages/categary/Mens";
-import Jewelery from "../pages/categary/Jewellery";
-import Electronics from "../pages/categary/Electronics";
-import Women from "../pages/categary/Women";
-import Mens from "../pages/categary/Mens";
 import SearchResult from "../pages/SearchResult";
+import Payment from "../pages/Payment";
+import Categories from "../pages/categary/Categories";
+import Signup from "../pages/Signup";
+import Signin from "../pages/Signin";
 
 const router = createBrowserRouter([
   {
@@ -28,25 +27,41 @@ const router = createBrowserRouter([
         element: <Product />,
       },
       {
-        path: "/category/mens",
-        element: <Mens />,
+        path: "/categories/:categorieName",
+        element: <Categories />
       },
-      {
-        path: "/category/jewelery",
-        element: <Jewelery />,
-      },
-      {
-        path: "/category/electronics",
-        element: <Electronics />,
-      },
-      {
-        path: "/category/women",
-        element: <Women />,
-      },
+      // {
+      //   path: "/category/mens",
+      //   element: <Mens />,
+      // },
+      // {
+      //   path: "/category/jewelery",
+      //   element: <Jewelery />,
+      // },
+      // {
+      //   path: "/category/electronics",
+      //   element: <Electronics />,
+      // },
+      // {
+      //   path: "/category/women",
+      //   element: <Women />,
+      // },
       {
         path: "/search/:productName",
         element: <SearchResult />,
       },
+      {
+        path: "/payment",
+        element: <Payment />
+      },
+      {
+        path: "/signup",
+        element: <Signup />
+      },
+      {
+        path: "/signin",
+        element: <Signin />
+      }
     ],
   },
 ]);

@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { AppDispatch, RootState } from "../app/store";
 import { addToCart } from "../features/ecommerce/ecommerceSlice";
 import { useState } from "react";
-import { BsFillCartFill } from "react-icons/bs";
 
 function Product() {
   const [clicked, setClicked] = useState(false);
@@ -14,6 +13,8 @@ function Product() {
       (product) => Number(product.id) === Number(productId)
     )
   );
+
+  console.log(product);
   
   const dispatch = useDispatch<AppDispatch>();
   const addToCartHandler = () => {
@@ -23,27 +24,30 @@ function Product() {
 
   if (!product)
     return (
-      <div className="max-w-md mx-auto p-4">
-        <div className="animate-pulse">
-          <div className="h-48 bg-gray-300 mb-4"></div>
-          <div className="h-6 bg-gray-300 mb-2"></div>
-          <div className="h-4 bg-gray-300 mb-2"></div>
-          <div className="h-4 bg-gray-300 mb-4 w-1/2"></div>
-          <div className="flex justify-between">
-            <div className="h-10 bg-gray-300 w-1/3 rounded"></div>
-            <div className="h-10 bg-gray-300 w-1/3 rounded"></div>
+      <div className="w-[50%] mx-auto mt-10 max-w-5xl">
+          <div className="">
+            <div className="bg-gray-200 animate-pulse w-full h-48 rounded mb-4" />
           </div>
-        </div>
+          <div className="">
+            <div className="bg-gray-200 animate-pulse w-full h-6 rounded mb-2" />
+            <div className="bg-gray-200 animate-pulse w-full h-4 rounded mb-2" />
+            <div className="bg-gray-200 animate-pulse w-1/2 h-5 rounded mb-4" />
+            <div className="bg-gray-200 animate-pulse w-full h-10 rounded mb-4" />
+            <div className="bg-gray-200 animate-pulse w-full h-10 rounded" />
+          </div>
       </div>
     );
 
   return (
-    <div className="max-w-md mx-auto p-4">
+    <div className="max-w-5xl mx-auto p-4 flex items-center border mt-10 shadow-2xl rounded-xl">
+      <div className="w-[50%]">
       <img
         src={product.image}
         alt={product.title}
         className="w-full h-48 object-contain mb-4"
       />
+      </div>
+      <div className="w-[50%]">
       <h2 className="text-xl font-bold mb-2">{product.title}</h2>
       <p className="text-gray-700 mb-2">{product.description}</p>
       <p className="text-lg font-semibold mb-4">${product.price}</p>
@@ -53,12 +57,12 @@ function Product() {
           Qunaity:
         </label>
         <input
-          className="border border rounded p-2 w-full"
+          className="border rounded p-2 w-full"
           type="number"
           value={quantity}
           min="1"
           id="quantity"
-          onChange={(e) => setQuantity(e.target.value)}
+          onChange={(e) => setQuantity(Number(e.target.value))}
         />
       </div>
 
@@ -68,12 +72,9 @@ function Product() {
           onClick={addToCartHandler}
         >
           {clicked ? "Added to cart" : "Add to cart"}
-          <BsFillCartFill />
         </button>
-        <button className="bg-green-500 text-white px-4 py-2 rounded">
-          Buy Now
-        </button>
-      </div>
+        </div>
+        </div>
     </div>
   );
 }

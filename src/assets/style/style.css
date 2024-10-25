@@ -3,13 +3,14 @@
     margin: 0;
 }
 @font-face {
-    font-family: 'Poppins-Black';
+    font-family: 'Poppins-BlackItalic';
     font-style: normal;
     font-weight: normal;
     src: url("../font/Poppins/Poppins-BlackItalic.ttf") format('ttf');
 }
 .poppins-black{
-    font-family: 'Poppins-Black';
+    font-family: 'Poppins-BlackItalic';
+  
 }
 
   

@@ -1,25 +1,44 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../app/store";
+import { AppDispatch, RootState } from "../app/store";
 import { useDispatch } from "react-redux";
-import { removeFromCart } from "../features/ecommerce/ecommerceSlice";
+import { Product, removeFromCart } from "../features/ecommerce/ecommerceSlice";
+import { Link } from "react-router-dom";
+
+interface CartItemsIds {
+  productId : number;
+  quantity: number;
+}
+
+interface cartItems{
+  quantity: number;
+    id: number;
+    title: string;
+    price: number;
+    description: string;
+    category: string;
+    image: string;
+    rating: {
+        rate: number;
+        count: number;
+    };
+}
 
 function CartItems() {
   const dispatch = useDispatch<AppDispatch>();
 
-  const cartItemsIds: any = useSelector<RootState>(
-    (state) => state.products.cart
-  ); //[{productId: 1, quanity : 2}, {}]
+  const cartItemsIds: CartItemsIds[]  = useSelector(
+    (state: RootState) => state.products.cart              //[{productId: 1, quantity: 2}, {productId: 2, quantity: 1}]
+  ); 
 
-  const products: any = useSelector<RootState>(
-    (state) => state.products.products
-  ); //[{item1},{item2},{item3}]
+  const products: Product[] = useSelector(
+    (state: RootState) => state.products.products
+  );  
 
-  let cartItems = cartItemsIds.map((item) => {
+  let cartItems : cartItems[]  = cartItemsIds.map((item) => {
     const product = products.find((product) => product.id == item.productId);
     if (product) {
       return { ...product, quantity: item.quantity };
     }
-    return null;
   });
 
   const totalPrice = cartItems.reduce((total: number, item: any) => {
@@ -39,6 +58,7 @@ function CartItems() {
                 key={item.id}
                 className="flex justify-between items-center border-b pb-2"
               >
+              <img src={item.image} className="h-10" alt="" />
                 <span className="font-medium">{item.title}</span>
                 <span>Quantity : {item.quantity}</span>
                 <span className="text-gray-600">
@@ -55,13 +75,21 @@ function CartItems() {
         )}
       </div>
       {cartItems.length > 0 && (
-        <div className="p-4 flex justify-end">
-          <span className="text-xl font-bold">Total Price:</span>
-          <span className="ml-2 text-xl font-bold">
-            ${totalPrice.toFixed(2)}
-          </span>{" "}
-        </div>
-      )}
+  <div className="p-4 flex justify-end">
+    <span className="text-xl font-bold border-2 rounded-md border-green-600 p-4">Total Price:
+    <span className="ml-2 text-xl font-bold">
+      ${totalPrice.toFixed(2)}
+    </span></span>
+    <div className="mt-5 mx-auto">
+  <Link to="/payment" className="block">
+    <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200">
+      Pay Now ${totalPrice.toFixed(2)}
+    </button>
+  </Link>
+</div>
+  </div>
+)}
+
     </>
   );
 }

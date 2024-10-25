@@ -1,6 +1,6 @@
 // src/slices/ecommerceSlice.ts
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import productApi from "../../app/api/productApi"; // Update the path accordingly
+import productApi from "../../api/productApi"; // Update the path accordingly
 
 
 export interface Product {
@@ -42,10 +42,9 @@ const ecommerceSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action) => {
-      [{}, {}];
       const { productId, quantity } = action.payload;
       const existingProduct = state.cart.find(
-        (item) => item.productId === productId
+        (item) => item.productId === productId        //[{produtId: 1, quantity: 2}]
       );
       if (existingProduct) {
         existingProduct.quantity =
